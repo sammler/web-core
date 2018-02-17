@@ -8,7 +8,7 @@ class AppBreadcrumb extends Component {
     return (
       <Breadcrumb style={{margin: '16px 0'}}>
         <Breadcrumb.Item><Link to='/'>Home</Link></Breadcrumb.Item>
-        <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+        <Breadcrumb.Item>Strategies</Breadcrumb.Item>
       </Breadcrumb>
     );
   }
