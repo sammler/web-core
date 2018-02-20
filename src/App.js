@@ -5,16 +5,17 @@ import { connect } from 'react-redux';
 import { history } from './_helpers';
 import { alertActions } from "./_actions";
 import { PrivateRoute } from "./_components";
-import { HomePage } from "./HomePage";
-import { LoginPage } from "./LoginPage";
 
-// my
 import './App.css';
 import { Layout } from 'antd';
 import { AppHeader } from './app/AppHeader';
 import { AppSideMenu } from './app/AppSideMenu';
 import AppFooter from './app/AppFooter';
 import AppBreadcrumb from './app/AppBreadcrumb';
+
+import { HomePage } from "./HomePage";
+import { LoginPage } from "./LoginPage";
+import {Routes as RoutesTwitter} from './strategies/twitter';
 
 const {Content} = Layout;
 
@@ -46,6 +47,7 @@ class App extends Component {
               <Content style={{padding: '0 24px', minHeight: 280}}>
                 <PrivateRoute exact path="/" component={HomePage}/>
                 <Route path="/login" component={LoginPage}/>
+                <Route path="/" component={RoutesTwitter} />
               </Content>
             </Layout>
           </Content>

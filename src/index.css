@@ -5,6 +5,8 @@ html, body {
   height: 100%; }
   #root > .ant-layout {
     min-height: 100%; }
+    #root > .ant-layout .main-content {
+      background-color: #fff; }
 
 .layout-content {
   display: flex; }

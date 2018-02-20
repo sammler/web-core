@@ -5,6 +5,10 @@ html, body{
   height: 100%;
   & > .ant-layout {
     min-height: 100%;
+
+    .main-content {
+      background-color:#fff;
+    }
   }
 }
 .layout-content {

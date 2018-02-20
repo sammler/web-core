@@ -41,6 +41,7 @@ class AppSideMenu extends Component {
         {/*<Menu.Item key="2.2">option6</Menu.Item>*/}
         {/*<Menu.Item key="2.3">option7</Menu.Item>*/}
         {/*<Menu.Item key="2.4">option8</Menu.Item>*/}
+        <Menu.Item key="2.5"><Link to="/strategies/github/settings">Settings</Link></Menu.Item>
       </SubMenu>
     </Menu>
 
