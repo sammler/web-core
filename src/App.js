@@ -33,8 +33,6 @@ class App extends Component {
   render() {
     // const basePath = '/' + location.pathname.split('/')[1]; // eslint-disable-line no-restricted-globals
 
-    // Todo: enable alert
-    // const {alert} = this.props;
     return (
 
       <Router history={history}>

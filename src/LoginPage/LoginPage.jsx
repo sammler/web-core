@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, Alert } from 'antd';
 
 import { userActions } from '../_actions';
 
@@ -31,7 +31,6 @@ class LoginPage extends React.Component {
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        //console.log('Received values of form: ', values);
         this.setState({submitted: true});
         const {username, password} = values;
         const {dispatch} = this.props;
@@ -50,9 +49,16 @@ class LoginPage extends React.Component {
     const userNameError = isFieldTouched('username') && getFieldError('username');
     const passwordError = isFieldTouched('password') && getFieldError('password');
 
+    const {alert} = this.props;
+    let alertComponent = null;
+    if (alert && alert.type) {
+      alertComponent = <div><Alert message={alert.message} type={alert.type} showIcon closable /></div>
+    }
+
     return (
       <div>
         <h2>Login</h2>
+        {alertComponent}
         <Form layout="inline" onSubmit={this.handleSubmit}>
           <FormItem
             validateStatus={userNameError ? 'error' : ''}
@@ -92,8 +98,10 @@ class LoginPage extends React.Component {
 
 function mapStateToProps(state) {
   const {loggingIn} = state.authentication;
+  const alert = state.alert;
   return {
-    loggingIn
+    loggingIn,
+    alert
   };
 }
 
