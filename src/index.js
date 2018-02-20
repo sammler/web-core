@@ -7,10 +7,9 @@ import './index.css';
 import { App } from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import Login from './screens/auth/login/LoginForm';
-import SignupForm from "./screens/auth/signup/SignupForm";
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { Dashboard as TwitterDashboard, Settings as TwitterSettings } from './strategies/twitter/strategy.twitter';
+// import SignupForm from "./screens/auth/signup/SignupForm";
+// import { BrowserRouter, Route, Switch } from 'react-router-dom'
+// import { Dashboard as TwitterDashboard, Settings as TwitterSettings } from './strategies/twitter/strategy.twitter';
 
 // setup fake backend
 import { configureFakeBackend } from './_helpers';
@@ -22,7 +21,7 @@ render(
   </Provider>,
   document.getElementById('root')
 );
-// registerServiceWorker();
+registerServiceWorker();
 
 // {/*<BrowserRouter>*/}
 //   {/*<Switch>*/}

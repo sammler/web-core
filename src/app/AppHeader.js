@@ -1,29 +1,69 @@
 import React, { Component } from 'react';
-import { Layout, Menu } from 'antd';
-import './AppHeader.css';
+import { connect } from 'react-redux';
+import { Layout, Menu, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
+
+import './AppHeader.css';
+import { history } from "../_helpers";
+import { alertActions } from "../_actions";
 
 const {Header} = Layout;
 
 class AppHeader extends Component {
 
+  constructor(props) {
+    super(props);
+
+    const {dispatch} = this.props;
+    history.listen((location, action) => {
+      dispatch(alertActions.clear());
+    });
+  }
+
   render() {
+
+    const menus = [];
+    if (this.props.user) {
+      menus.push({
+        key: 0,
+        title: 'Logout',
+        link: '/login'
+      })
+    } else {
+      menus.push({
+        key: 1,
+        title: 'Login',
+        link: '/login'
+      })
+    }
+
     return (
       <Header className="header">
         <div className="logo"/>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['2']}
-          style={{lineHeight: '64px'}}
-        >
-          <Menu.Item key="1"><Link to='/login'>Login</Link></Menu.Item>
-          <Menu.Item key="2"><Link to='/Signup'>Signup</Link></Menu.Item>
-          <Menu.Item key="3"><Link to='/logout'>Logout</Link></Menu.Item>
-        </Menu>
+        <Row type="flex" justify="end">
+          <Col>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              style={{lineHeight: '64px'}}
+            >
+              {menus.map(menu => <Menu.Item key={menu.key}><Link to={menu.link}>{menu.title}</Link></Menu.Item>)}
+            </Menu>
+          </Col>
+        </Row>
       </Header>
     );
   }
 }
 
-export default AppHeader;
+function mapStateToProps(state) {
+  const {users, authentication} = state;
+  const {user} = authentication;
+  return {
+    user,
+    users
+  };
+}
+
+const component = connect(mapStateToProps)(AppHeader);
+export { component as AppHeader };

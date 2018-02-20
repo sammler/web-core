@@ -1,85 +1,101 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Form, Icon, Input, Button } from 'antd';
 
 import { userActions } from '../_actions';
+
+const FormItem = Form.Item;
+
+function hasErrors(fieldsError) {
+  return Object.keys(fieldsError).some(field => fieldsError[field]);
+}
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
+    // Todo: Move to dedicated logout page
     // reset login status
     this.props.dispatch(userActions.logout());
 
-    this.state = {
-      username: '',
-      password: '',
-      submitted: false
-    };
-
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  componentDidMount() {
+    // To disabled submit button at the beginning.
+    this.props.form.validateFields();
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    this.setState({ submitted: true });
-    const { username, password } = this.state;
-    const { dispatch } = this.props;
-    if (username && password) {
-      dispatch(userActions.login(username, password));
-    }
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        //console.log('Received values of form: ', values);
+        this.setState({submitted: true});
+        const {username, password} = values;
+        const {dispatch} = this.props;
+        if (username && password) {
+          dispatch(userActions.login(username, password));
+        }
+      }
+    });
   }
 
   render() {
-    const { loggingIn } = this.props;
-    const { username, password, submitted } = this.state;
+
+    const {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
+
+    // Only show error after a field is touched.
+    const userNameError = isFieldTouched('username') && getFieldError('username');
+    const passwordError = isFieldTouched('password') && getFieldError('password');
+
     return (
-      <div className="col-md-6 col-md-offset-3">
-        <div className="alert alert-info">
-          Username: test<br />
-          Password: test
-        </div>
+      <div>
         <h2>Login</h2>
-        <form name="form" onSubmit={this.handleSubmit}>
-          <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
-            <label htmlFor="username">Username</label>
-            <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
-            {submitted && !username &&
-            <div className="help-block">Username is required</div>
-            }
-          </div>
-          <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-            <label htmlFor="password">Password</label>
-            <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-            {submitted && !password &&
-            <div className="help-block">Password is required</div>
-            }
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary">Login</button>
-            {loggingIn &&
-            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            }
-          </div>
-        </form>
+        <Form layout="inline" onSubmit={this.handleSubmit}>
+          <FormItem
+            validateStatus={userNameError ? 'error' : ''}
+            help={userNameError || ''}
+          >
+            {getFieldDecorator('username', {
+              rules: [{required: true, message: 'Please input your username!'}],
+            })(
+              <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Username"/>
+            )}
+          </FormItem>
+          <FormItem
+            validateStatus={passwordError ? 'error' : ''}
+            help={passwordError || ''}
+          >
+            {getFieldDecorator('password', {
+              rules: [{required: true, message: 'Please input your Password!'}],
+            })(
+              <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} type="password"
+                     placeholder="Password"/>
+            )}
+          </FormItem>
+          <FormItem>
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={hasErrors(getFieldsError())}
+            >
+              Log in
+            </Button>
+          </FormItem>
+        </Form>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { loggingIn } = state.authentication;
+  const {loggingIn} = state.authentication;
   return {
     loggingIn
   };
 }
 
-const connectedLoginPage = connect(mapStateToProps)(LoginPage);
-export { connectedLoginPage as LoginPage };
+const WrappedLoginPage = Form.create()(connect(mapStateToProps)(LoginPage));
+export { WrappedLoginPage as LoginPage };

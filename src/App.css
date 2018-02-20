@@ -1,14 +1,1 @@
 @import url(~antd/dist/antd.css);
-.App {
-  text-align: center; }
-
-.App-header {
-  background-color: #666;
-  height: 50px;
-  padding: 20px;
-  color: white; }
-
-.logo-header {
-  color: #efefef;
-  font-size: 1.5em;
-  font-family: sans-serif; }

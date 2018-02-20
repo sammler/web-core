@@ -1,5 +1,10 @@
+import { v4 } from 'uuid';
+
 export function configureFakeBackend() {
-  let users = [{ id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User' }];
+  let users = [
+    {id: v4(), username: 'test', password: 'test', firstName: 'Test', lastName: 'User'},
+    {id: v4(), username: 'admin', password: 'admin', firstName: 'Admin', lastName: 'User'}
+  ];
   let realFetch = window.fetch;
   window.fetch = function (url, opts) {
     return new Promise((resolve, reject) => {
@@ -26,7 +31,7 @@ export function configureFakeBackend() {
               lastName: user.lastName,
               token: 'fake-jwt-token'
             };
-            resolve({ ok: true, json: () => responseJson });
+            resolve({ok: true, json: () => responseJson});
           } else {
             // else return error
             reject('Username or password is incorrect');
@@ -39,7 +44,7 @@ export function configureFakeBackend() {
         if (url.endsWith('/users') && opts.method === 'GET') {
           // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
           if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-            resolve({ ok: true, json: () => users });
+            resolve({ok: true, json: () => users});
           } else {
             // return 401 not authorised if token is null or invalid
             reject('Unauthorised');
