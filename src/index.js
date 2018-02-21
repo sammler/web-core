@@ -1,18 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import Login from './screens/auth/login/LoginForm';
-import SignupForm from "./screens/auth/signup/SignupForm";
-import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { store } from './_store';
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/login" component={Login}/>
-      <Route path="/signup" component={SignupForm}/>
-      <Route path="/" component={App} />
-    </Switch>
-  </BrowserRouter>, document.getElementById('root'));
+import './index.css';
+import { App } from './App';
+import registerServiceWorker from './registerServiceWorker';
+
+// setup fake backend
+import { configureFakeBackend } from './_helpers';
+configureFakeBackend();
+
+render(
+  <Provider store={store}>
+    <App/>
+  </Provider>,
+  document.getElementById('root')
+);
 registerServiceWorker();
