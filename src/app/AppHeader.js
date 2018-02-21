@@ -23,15 +23,20 @@ class AppHeader extends Component {
   render() {
 
     const menus = [];
+    menus.push({
+      key: 0,
+      title: 'Sign up',
+      link: '/signup'
+    });
     if (this.props.user) {
       menus.push({
-        key: 0,
+        key: 1,
         title: 'Logout',
         link: '/login'
       })
     } else {
       menus.push({
-        key: 1,
+        key: 2,
         title: 'Login',
         link: '/login'
       })

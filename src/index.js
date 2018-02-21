@@ -7,10 +7,6 @@ import './index.css';
 import { App } from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-// import SignupForm from "./screens/auth/signup/SignupForm";
-// import { BrowserRouter, Route, Switch } from 'react-router-dom'
-// import { Dashboard as TwitterDashboard, Settings as TwitterSettings } from './strategies/twitter/strategy.twitter';
-
 // setup fake backend
 import { configureFakeBackend } from './_helpers';
 configureFakeBackend();
@@ -22,13 +18,3 @@ render(
   document.getElementById('root')
 );
 registerServiceWorker();
-
-// {/*<BrowserRouter>*/}
-//   {/*<Switch>*/}
-//     {/*<Route path="/login" component={Login}/>*/}
-//     {/*<Route path="/signup" component={SignupForm}/>*/}
-//     {/*<Route path="/strategies/twitter/dashboard" component={TwitterDashboard}/>*/}
-//     {/*<Route path="/strategies/twitter/settings" component={TwitterSettings}/>*/}
-//     {/*<Route path="/" component={App}/>*/}
-//   {/*</Switch>*/}
-// {/*</BrowserRouter>*/}
