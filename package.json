@@ -36,7 +36,9 @@
   "directories": {
     "doc": "docs"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "auth-service": "github:sammler/auth-service"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sammler/web-core.git"
