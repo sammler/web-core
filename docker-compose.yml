@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  web-core:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - APP_ENV=development
+    ports:
+      - 4000:4000
+    volumes:
+      - ./:/opt/web-core
+    command: ["npm", "run", "start"]
+
+  mongo:
+    image: sammlerio/mongo
+    ports:
+      - 27017:27017
+
+  auth-service:
+    image: sammlerio/auth-service
+    ports:
+      - "3010:3010"
+    environment:
+      - PORT=3010
+      - MONGODB_DEBUG=false
+      - MONGODB_HOST=mongo
+      - MONGODB_PORT=27017
+    volumes:
+      - ./node_modules/auth-service:/opt/auth-service
+    command: ["npm", "run", "start:watch"]
+    depends_on:
+      - mongo
+
