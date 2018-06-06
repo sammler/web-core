@@ -51,7 +51,8 @@
   "homepage": "https://github.com/sammler/web-core#readme",
   "renovate": {
     "extends": [
-      "config:base"
+      "config:base",
+      "schedule:weekly"
     ]
   }
 }
