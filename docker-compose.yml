@@ -20,7 +20,7 @@ services:
       - 27017:27017
 
   auth-service:
-    image: sammlerio/auth-service:latest@sha256:42f577814c554fe20c01ed4835b3c27677afc593fc2d29049e7fc80dca5ae48d
+    image: sammlerio/auth-service:latest@sha256:fbe26856123caaf8e2360fd96fa5e48b5e3c61a3cd493672ad45b4818418e270
     ports:
       - "3010:3010"
     environment:
