@@ -5,23 +5,23 @@
   "private": true,
   "proxy": "http://auth-service:3010",
   "dependencies": {
-    "antd": "^3.2.0",
-    "history": "^4.7.2",
-    "lodash": "^4.17.5",
+    "antd": "3.5.4",
+    "history": "4.7.2",
+    "lodash": "4.17.5",
     "node-sass-chokidar": "0.0.3",
-    "npm-run-all": "^4.1.2",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-router-redux": "^4.0.8",
-    "react-scripts": "1.0.17",
-    "redux": "^3.7.2",
-    "redux-actions": "^2.2.1",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "uuid": "^3.2.1"
+    "npm-run-all": "4.1.2",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "react-redux": "5.0.7",
+    "react-router": "4.2.0",
+    "react-router-dom": "4.2.2",
+    "react-router-redux": "4.0.8",
+    "react-scripts": "1.1.1",
+    "redux": "3.7.2",
+    "redux-actions": "2.2.1",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.2.0",
+    "uuid": "3.2.1"
   },
   "scripts": {
     "start-js": "react-scripts start",
@@ -52,7 +52,8 @@
   "homepage": "https://github.com/sammler/web-core#readme",
   "renovate": {
     "extends": [
-      "config:base"
+      "config:base",
+      "schedule:weekly"
     ]
   }
 }

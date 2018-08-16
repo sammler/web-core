@@ -17,7 +17,7 @@ services:
     command: ["npm", "run", "start"]
 
   mongo:
-    image: sammlerio/mongo
+    image: sammlerio/mongo:latest@sha256:c8a1941d19da89eaa84b30276ec350e54f2e80bcd3bdd81f69a8f13070e8b333
     ports:
       - 27017:27017
     logging:
@@ -33,7 +33,7 @@ services:
 
 
   auth-service:
-    image: sammlerio/auth-service
+    image: sammlerio/auth-service:latest@sha256:42f577814c554fe20c01ed4835b3c27677afc593fc2d29049e7fc80dca5ae48d
     ports:
       - "3010:3010"
     environment:

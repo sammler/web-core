@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------
 #                               BASE IMAGE
 # -------------------------------------------------------------------
-FROM node:8.9.4@sha256:9d3c5b6b15c9f82f4f668a7bf8348730ccfdca6a7fceddfcd5ef446f597c41f3 as BASE
+FROM node:8.11.0@sha256:d4f30a5e6229ecea698f1d0499576b1df170e949fb8fd98631296cd260598a47 as BASE
 
 ARG PORT=4000
 ENV PORT=$PORT
