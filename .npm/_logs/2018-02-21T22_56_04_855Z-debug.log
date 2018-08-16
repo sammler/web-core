@@ -1,0 +1,37 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'start' ]
+2 info using npm@5.6.0
+3 info using node@v8.9.4
+4 verbose config Skipping project config: /opt/web-core/.npmrc. (matches userconfig)
+5 verbose run-script [ 'prestart', 'start', 'poststart' ]
+6 info lifecycle web-core@0.1.0~prestart: web-core@0.1.0
+7 info lifecycle web-core@0.1.0~start: web-core@0.1.0
+8 verbose lifecycle web-core@0.1.0~start: unsafe-perm in lifecycle true
+9 verbose lifecycle web-core@0.1.0~start: PATH: /usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/opt/web-core/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+10 verbose lifecycle web-core@0.1.0~start: CWD: /opt/web-core
+11 silly lifecycle web-core@0.1.0~start: Args: [ '-c', 'npm-run-all -p watch-css start-js' ]
+12 silly lifecycle web-core@0.1.0~start: Returned: code: 1  signal: null
+13 info lifecycle web-core@0.1.0~start: Failed to exec start script
+14 verbose stack Error: web-core@0.1.0 start: `npm-run-all -p watch-css start-js`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/index.js:285:16)
+14 verbose stack     at emitTwo (events.js:126:13)
+14 verbose stack     at EventEmitter.emit (events.js:214:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/lib/spawn.js:55:14)
+14 verbose stack     at emitTwo (events.js:126:13)
+14 verbose stack     at ChildProcess.emit (events.js:214:7)
+14 verbose stack     at maybeClose (internal/child_process.js:925:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)
+15 verbose pkgid web-core@0.1.0
+16 verbose cwd /opt/web-core
+17 verbose Linux 4.9.75-linuxkit-aufs
+18 verbose argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "start"
+19 verbose node v8.9.4
+20 verbose npm  v5.6.0
+21 error code ELIFECYCLE
+22 error errno 1
+23 error web-core@0.1.0 start: `npm-run-all -p watch-css start-js`
+23 error Exit status 1
+24 error Failed at the web-core@0.1.0 start script.
+24 error This is probably not a problem with npm. There is likely additional logging output above.
+25 verbose exit [ 1, true ]
