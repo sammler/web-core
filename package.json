@@ -21,7 +21,7 @@
     "redux-actions": "2.2.1",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.2.0",
-    "uuid": "3.2.1"
+    "uuid": "3.3.2"
   },
   "scripts": {
     "start-js": "react-scripts start",
