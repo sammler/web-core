@@ -3,17 +3,18 @@ import { authHeader } from '../_helpers';
 export const userService = {
   login,
   logout,
-  getAll
+  getAll,
+  signUp
 };
 
 function login(username, password) {
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({username, password})
   };
 
-  return fetch('/users/authenticate', requestOptions)
+  return fetch('/v1/user/login', requestOptions)
     .then(response => {
       if (!response.ok) {
         return Promise.reject(response.statusText);
@@ -35,6 +36,31 @@ function login(username, password) {
 function logout() {
   // remove user from local storage to log user out
   localStorage.removeItem('user');
+}
+
+function signUp(username, password, email) {
+  const requestOptions = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      local: {
+        username,
+        password,
+        email: email
+      }
+    })
+  };
+
+  console.log('requestOptions', requestOptions);
+
+  return fetch('/v1/user/register/local', requestOptions)
+    .then(response => {
+      if (!response.ok) {
+        console.error(response);
+        return Promise.reject(response);
+      }
+      return response.json();
+    });
 }
 
 function getAll() {

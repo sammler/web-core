@@ -6,8 +6,32 @@ import { history } from '../_helpers';
 export const userActions = {
   login,
   logout,
-  getAll
+  getAll,
+  signUp
 };
+
+function signUp(username, password, email) {
+
+  return dispatch => {
+    dispatch(request({username}));
+
+    userService.signUp(username, password, email)
+      .then(
+        user => {
+          dispatch(success(user));
+          dispatch(alertActions.success('Successfully registered'));
+        },
+        error => {
+          dispatch(failure(error));
+          dispatch(alertActions.error(error));
+        }
+      )
+  };
+
+  function request(user) {return {type: userConstants.SIGNUP_REQUEST, user}}
+  function success(user) {return {type: userConstants.SIGNUP_SUCCESS, user}}
+  function failure(error) {return {type: userConstants.SIGNUP_FAILURE, error}}
+}
 
 function login(username, password) {
   return dispatch => {

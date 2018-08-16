@@ -15,7 +15,8 @@ import AppBreadcrumb from './app/AppBreadcrumb';
 
 import { HomePage } from "./HomePage";
 import { LoginPage } from "./LoginPage";
-import {Routes as RoutesTwitter} from './strategies/twitter';
+import { SignupPage } from "./SignupPage";
+import { Routes as RoutesTwitter } from './strategies/twitter';
 
 const {Content} = Layout;
 
@@ -45,7 +46,8 @@ class App extends Component {
               <Content style={{padding: '0 24px', minHeight: 280}}>
                 <PrivateRoute exact path="/" component={HomePage}/>
                 <Route path="/login" component={LoginPage}/>
-                <Route path="/" component={RoutesTwitter} />
+                <Route path="/signup" component={SignupPage}/>
+                <Route path="/" component={RoutesTwitter}/>
               </Content>
             </Layout>
           </Content>

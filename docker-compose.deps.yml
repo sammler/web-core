@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  mongo:
+    image: sammlerio/mongo
+    ports:
+      - 27017:27017
+
+  rabbitmq:
+    image: sammlerio/rabbitmq
+    ports:
+      - "8080:15672"
+      - "5672:5672"
+
+
+  auth-service:
+    image: sammlerio/auth-service
+    ports:
+      - "3010:3010"
+    environment:
+      - PORT=3010
+      - JWT_SECREAT=foo
+      - MONGODB_DEBUG=false
+      - MONGODB_HOST=mongo
+      - MONGODB_PORT=27017
+    volumes:
+      - ./node_modules/auth-service:/opt/auth-service
+    command: ["npm", "run", "start:watch"]
+    depends_on:
+      - mongo

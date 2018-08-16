@@ -8,8 +8,8 @@ import { App } from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 // setup fake backend
-import { configureFakeBackend } from './_helpers';
-configureFakeBackend();
+// import { configureFakeBackend } from './_helpers';
+// configureFakeBackend();
 
 render(
   <Provider store={store}>

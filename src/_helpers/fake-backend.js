@@ -11,6 +11,24 @@ export function configureFakeBackend() {
       // wrap in timeout to simulate server api call
       setTimeout(() => {
 
+        // signUp
+        if (url.endsWith('/users/signup') && opts.method === 'POST') {
+          let params = JSON.parse(opts.body);
+
+          // find if this user already exists
+          let filteredUsers = users.filter(user => {
+            return user.username === params.username
+          });
+
+          if (filteredUsers.length) {
+            reject('User already exists');
+          } else {
+            users.push({id: v4(), username: params.username, password: params.password});
+            resolve({ok: true, json: () => {}})
+          }
+          return;
+        }
+
         // authenticate
         if (url.endsWith('/users/authenticate') && opts.method === 'POST') {
           // get parameters from post request

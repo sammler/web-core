@@ -1,28 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Icon, Input, Button, Alert } from 'antd';
-
-import { userActions } from '../_actions';
-
-const FormItem = Form.Item;
+import { Form, Icon, Button, Input, Alert } from 'antd';
+import { userActions } from "../_actions";
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class LoginPage extends React.Component {
+class SignupPage extends React.Component {
   constructor(props) {
     super(props);
-
-    // Todo: Move to dedicated logout page
-    // reset login status
-    this.props.dispatch(userActions.logout());
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    // To disabled submit button at the beginning.
     this.props.form.validateFields();
   }
 
@@ -31,12 +23,16 @@ class LoginPage extends React.Component {
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.setState({submitted: true});
-        const {username, password} = values;
+        console.log('values', values);
+        const {username, password, email} = values;
         const {dispatch} = this.props;
-        if (username && password) {
-          dispatch(userActions.login(username, password));
+        if (username && password && email) {
+          dispatch(userActions.signUp(username, password, email));
+        } else {
+          console.error('Cannot dispatch', values);
         }
+      } else {
+        console.log('We have an error', err);
       }
     });
   }
@@ -48,6 +44,7 @@ class LoginPage extends React.Component {
     // Only show error after a field is touched.
     const userNameError = isFieldTouched('username') && getFieldError('username');
     const passwordError = isFieldTouched('password') && getFieldError('password');
+    const emailError = isFieldTouched('email') && getFieldError('email');
 
     const {alert} = this.props;
     let alertComponent = null;
@@ -57,53 +54,63 @@ class LoginPage extends React.Component {
 
     return (
       <div>
-        <h2>Login</h2>
+        <h2>Sign up</h2>
         {alertComponent}
-        <Form layout="inline" onSubmit={this.handleSubmit}>
-          <FormItem
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Item
+            label="Username"
             validateStatus={userNameError ? 'error' : ''}
-            help={userNameError || ''}
           >
             {getFieldDecorator('username', {
               rules: [{required: true, message: 'Please input your username!'}],
             })(
               <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="Username"/>
             )}
-          </FormItem>
-          <FormItem
+          </Form.Item>
+          <Form.Item
+            label="Password"
             validateStatus={passwordError ? 'error' : ''}
             help={passwordError || ''}
           >
             {getFieldDecorator('password', {
-              rules: [{required: true, message: 'Please input your Password!'}],
+              rules: [{required: true, message: 'Please input your password!'}],
             })(
               <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} type="password"
                      placeholder="Password"/>
             )}
-          </FormItem>
-          <FormItem>
+          </Form.Item>
+          <Form.Item
+            label="E-Mail"
+            validateStatus={emailError ? 'error' : ''}
+            help={emailError || ''}
+          >
+            {getFieldDecorator('email', {
+              rules: [{required: true, message: 'Please input your E-Mail!'}],
+            })(
+              <Input prefix={<Icon type="mail" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="E-Mail"/>
+            )}
+          </Form.Item>
+          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               disabled={hasErrors(getFieldsError())}
             >
-              Log in
+              Sign up
             </Button>
-          </FormItem>
+          </Form.Item>
         </Form>
       </div>
-    );
+    )
   }
 }
 
 function mapStateToProps(state) {
-  const {loggingIn} = state.authentication;
   const alert = state.alert;
   return {
-    loggingIn,
     alert
   };
 }
 
-const WrappedPage = Form.create()(connect(mapStateToProps)(LoginPage));
-export { WrappedPage as LoginPage };
+const WrappedPage = Form.create()(connect(mapStateToProps)(SignupPage));
+export { WrappedPage as SignupPage }

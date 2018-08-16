@@ -16,9 +16,9 @@ ENV APP_ENV=$APP_ENV
 RUN mkdir -p $HOME
 WORKDIR $HOME
 
-COPY package.json package-lock.json ./
+COPY package.json ./
 
-RUN npm install
+RUN npm install --silent
 RUN npm rebuild node-sass
 
 ## -------------------------------------------------------------------
