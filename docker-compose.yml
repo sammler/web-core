@@ -33,7 +33,7 @@ services:
 
 
   auth-service:
-    image: sammlerio/auth-service:latest@sha256:42f577814c554fe20c01ed4835b3c27677afc593fc2d29049e7fc80dca5ae48d
+    image: sammlerio/auth-service:latest@sha256:df222e561b49f7c88eeda7ec64c28a7c9c5874a70b95cdaec716057877169298
     ports:
       - "3010:3010"
     environment:
