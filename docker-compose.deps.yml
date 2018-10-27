@@ -20,12 +20,14 @@ services:
       - "3010:3010"
     environment:
       - PORT=3010
-      - JWT_SECREAT=foo
+      - JWT_SECRET=foo
       - MONGODB_DEBUG=false
       - MONGODB_HOST=mongo
       - MONGODB_PORT=27017
-    volumes:
-      - ./node_modules/auth-service:/opt/auth-service
-    command: ["npm", "run", "start:watch"]
+      - NODE_ENV=test
+      - WINSTER_SUPRESS_LOGGING='true'
+#    volumes:
+#      - ./node_modules/auth-service:/opt/auth-service
+    command: ["npm", "run", "start"]
     depends_on:
       - mongo

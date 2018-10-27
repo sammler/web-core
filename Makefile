@@ -30,15 +30,15 @@ up:	 build				## Bring up the entire environment
 .PHONY: up
 
 up-deps:					## Bring up only dependencies
-	docker-compose --f=docker-compose.deps.yml up
+	docker-compose -f docker-compose.deps.yml up
 .PHONY: up-deps
 
 down-deps:				## Bring down the dependencies
-	docker-compose --f=docker-compose.deps.yml down
+	docker-compose -f docker-compose.deps.yml down -t 0
 .PHONY: down-deps
 
 down:							## Bring down the entire environment
-	docker-compose down
+	docker-compose down -t 0
 .PHONY: down
 
 rs: down up				## Restart the entire environment
